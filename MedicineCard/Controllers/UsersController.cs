@@ -46,5 +46,13 @@ namespace MedicineCard.Controllers
             return Ok(result);
         }
 
+        [HttpDelete]
+        public IActionResult Delete(long id)
+        {
+            _userService.Delete(id);
+            return Ok();
+        }
+
+
     }
 }

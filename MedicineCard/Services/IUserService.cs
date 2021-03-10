@@ -9,9 +9,14 @@ namespace MedicineCard.Services
 {
     public interface IUserService
     {
+        //CRUD
         IEnumerable<User> GetAll();
         User GetById(long id);
+        long Update(User entity);
+        void Delete(long id);
+        Task<long> Add(User entity);
+        //OTHER
         UserDto Auth(AuthRequest authRequest);
-        //todo methods from repository
+
     }
 }

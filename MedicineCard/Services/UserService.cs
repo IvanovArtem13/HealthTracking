@@ -19,6 +19,8 @@ namespace MedicineCard.Services
             _mapper = mapper;
         }
 
+
+
         public UserDto Auth(AuthRequest authRequest)
         {
             var user = _userRepository.GetAll().FirstOrDefault(x => x.UserName == authRequest.UserName && x.Password == authRequest.Password);
@@ -32,6 +34,24 @@ namespace MedicineCard.Services
             return _mapper.Map<UserDto>(user);
         }
 
+        public void Delete(long id)
+        {
+            _userRepository.Delete(id);    
+        }
+
+
+        public async Task<long> Add(User entity)
+        {
+            var result = await _userRepository.Add(entity);
+            return result;
+        }
+
+        public long Update(User entity)
+        {
+            var result = _userRepository.Update(entity);
+            return result;
+        }
+
         public IEnumerable<User> GetAll()
         {
             return _userRepository.GetAll();
@@ -40,8 +60,6 @@ namespace MedicineCard.Services
         public User GetById(long id)
         {
             return _userRepository.GetById(id);
-        }
-
-        //с репозитория дёрнуть остальные методы
+        }      
     }
 }
