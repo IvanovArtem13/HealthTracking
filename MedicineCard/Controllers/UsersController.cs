@@ -46,11 +46,18 @@ namespace MedicineCard.Controllers
             return Ok(result);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Add(UserDto userDto)
+        {
+            var result = await _userService.Add(userDto);
+            return Ok(result);
+        }
+
         [HttpDelete]
         public IActionResult Delete(long id)
         {
             _userService.Delete(id);
-            return Ok();
+            return Ok("User deleted!");
         }
 
 

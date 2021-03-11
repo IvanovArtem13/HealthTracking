@@ -14,7 +14,8 @@ namespace MedicineCard.Services
         User GetById(long id);
         long Update(User entity);
         void Delete(long id);
-        Task<long> Add(User entity);
+        Task<long> Add(UserDto entity);
+
         //OTHER
         UserDto Auth(AuthRequest authRequest);
 

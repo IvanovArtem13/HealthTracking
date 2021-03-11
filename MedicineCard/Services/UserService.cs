@@ -19,8 +19,6 @@ namespace MedicineCard.Services
             _mapper = mapper;
         }
 
-
-
         public UserDto Auth(AuthRequest authRequest)
         {
             var user = _userRepository.GetAll().FirstOrDefault(x => x.UserName == authRequest.UserName && x.Password == authRequest.Password);
@@ -40,12 +38,14 @@ namespace MedicineCard.Services
         }
 
 
-        public async Task<long> Add(User entity)
+        public async Task<long> Add(UserDto entity)
         {
-            var result = await _userRepository.Add(entity);
+            var mapResult = _mapper.Map<User>(entity);
+            var result = await _userRepository.Add(mapResult);
             return result;
         }
 
+        //todo kak v add
         public long Update(User entity)
         {
             var result = _userRepository.Update(entity);
