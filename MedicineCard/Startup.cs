@@ -35,6 +35,7 @@ namespace MedicineCard
 
             services.AddControllers();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IVisitService, VisitService>();
             services.AddScoped(typeof(IEfRepository<>), typeof(EfRepository<>));
             services.AddAutoMapper(typeof(Startup));
 

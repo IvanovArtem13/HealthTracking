@@ -22,6 +22,12 @@ namespace MedicineCard.Services
         public void Delete(long id)
         {
             var visit = _visitRepository.GetById(id);
+
+            if (visit == null)
+            {
+                //add valid and logger
+                return;
+            }
             _visitRepository.Delete(visit);
         }
 
