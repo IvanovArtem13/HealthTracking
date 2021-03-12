@@ -21,14 +21,14 @@ namespace MedicineCard.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult GetAllUsers()
         {
             var users = _userService.GetAll();
             return Ok(users);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(long id)
+        public IActionResult GetUserById(long id)
         {
             var user = _userService.GetById(id);
             return Ok(user);
@@ -46,15 +46,22 @@ namespace MedicineCard.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Add(UserDto userDto)
+        [HttpPost("add")]
+        public async Task<IActionResult> AddUser(UserDto userDto)
         {
             var result = await _userService.Add(userDto);
             return Ok(result);
         }
 
+        [HttpPut("update")]
+        public IActionResult UpdateProfile(UserDto userDto)
+        {
+            var result = _userService.Update(userDto);
+            return Ok(result);
+        }
+
         [HttpDelete]
-        public IActionResult Delete(long id)
+        public IActionResult DeleteUser(long id)
         {
             _userService.Delete(id);
             return Ok("User deleted!");

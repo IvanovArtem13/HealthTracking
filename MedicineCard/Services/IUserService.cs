@@ -10,9 +10,9 @@ namespace MedicineCard.Services
     public interface IUserService
     {
         //CRUD
-        IEnumerable<User> GetAll();
-        User GetById(long id);
-        long Update(User entity);
+        IEnumerable<UserDto> GetAll();
+        UserDto GetById(long id);
+        long Update(UserDto entity);
         void Delete(long id);
         Task<long> Add(UserDto entity);
 

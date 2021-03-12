@@ -34,9 +34,15 @@ namespace MedicineCard.Services
 
         public void Delete(long id)
         {
-            _userRepository.Delete(id);    
-        }
+            var result = _userRepository.GetById(id);
+            if (result == null)
+            {
+                //todo logger
+                throw new Exception("error deleted");
+            }
 
+            _userRepository.Delete(result);
+        }
 
         public async Task<long> Add(UserDto entity)
         {
@@ -45,21 +51,25 @@ namespace MedicineCard.Services
             return result;
         }
 
-        //todo kak v add
-        public long Update(User entity)
+        public long Update(UserDto entity)
         {
-            var result = _userRepository.Update(entity);
+            var mapResult = _mapper.Map<User>(entity);
+            var result = _userRepository.Update(mapResult);
             return result;
         }
 
-        public IEnumerable<User> GetAll()
+        public IEnumerable<UserDto> GetAll()
         {
-            return _userRepository.GetAll();
+            IEnumerable<User> users = _userRepository.GetAll();
+            var mapResult = _mapper.Map<IEnumerable<UserDto>>(users);
+            return mapResult;
         }
 
-        public User GetById(long id)
+        public UserDto GetById(long id)
         {
-            return _userRepository.GetById(id);
+            var user = _userRepository.GetById(id);
+            var mapResult = _mapper.Map<UserDto>(user);
+            return mapResult;
         }      
     }
 }

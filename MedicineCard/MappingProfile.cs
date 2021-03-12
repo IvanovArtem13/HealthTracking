@@ -14,6 +14,8 @@ namespace MedicineCard
         {
             CreateMap<User, UserDto>()
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName)).ReverseMap(); //если имена полей ==, то в этом нет необходимости
+            CreateMap<Visit, VisitDto>()
+                .ForMember(dest => dest.Diagnosis, opt => opt.MapFrom(src => src.Diagnosis)).ReverseMap();
         }
     }
 }

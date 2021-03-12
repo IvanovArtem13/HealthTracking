@@ -41,10 +41,10 @@ namespace MedicineCard.Services
             return result.Entity.Id;
         }
 
-        public void Delete(long id)
+        //todo ask how to do null validation
+        public void Delete(T entity)
         {
-            var entity = GetById(id);
-            _context.Remove(entity);
+            _context.Set<T>().Remove(entity);
         }
     }
 }
