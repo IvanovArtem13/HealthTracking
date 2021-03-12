@@ -11,10 +11,6 @@ namespace MedicineCard.Models
         public string LastName { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
-
-        public MedicineCard MedicineCard { get; set; }
-
-        
+        public string Password { get; set; }      
     }
 }

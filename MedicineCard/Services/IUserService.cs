@@ -18,6 +18,5 @@ namespace MedicineCard.Services
 
         //OTHER
         UserDto Auth(AuthRequest authRequest);
-
     }
 }

@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 
 namespace MedicineCard.Models
 {
-    public class MedicineCard : BaseEntity
+    public class Visit : BaseEntity
     {
-        public DateTime LastDateTime { get; set; }
+        public DateTime VisitDate { get; set; }
         public string Recommendations { get; set; }
+        public string Therapy { get; set; }
+        public string Diagnosis { get; set; }
 
         public Doctor Doctor { get; set; }
     }

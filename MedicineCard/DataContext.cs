@@ -10,7 +10,7 @@ namespace MedicineCard
     public class DataContext : DbContext
     {
         public DbSet<User> Users { get; set; }
-        public DbSet<Models.MedicineCard> MedicineCards { get; set; } //конфликт с похожим именем проекта 
+        public DbSet<Visit> Visits { get; set; } 
         public DbSet<Doctor> Doctors { get; set; }
 
         public DataContext(DbContextOptions<DataContext> options) : base(options)
