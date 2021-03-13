@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using MedicineCard.DTO;
@@ -35,20 +36,20 @@ namespace MedicineCard.Controllers
         }
 
         [HttpPost("auth")]
-        public IActionResult Auth(AuthRequest request)
+        public IActionResult Auth([Required]AuthRequest request)
         {
             var result = _userService.Auth(request);
             if (result == null)
             {
                 return BadRequest("Error");
             }
-
             return Ok(result);
         }
 
         [HttpPost("add")]
         public async Task<IActionResult> AddUser(UserDto userDto)
         {
+            if (userDto == null) return BadRequest("Invalid input params");
             var result = await _userService.Add(userDto);
             return Ok(result);
         }

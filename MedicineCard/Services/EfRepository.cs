@@ -41,7 +41,6 @@ namespace MedicineCard.Services
             return result.Entity.Id;
         }
 
-        //todo ask how to do null validation
         public void Delete(T entity)
         {
             _context.Set<T>().Remove(entity);

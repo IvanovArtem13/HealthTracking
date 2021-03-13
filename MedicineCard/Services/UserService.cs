@@ -37,8 +37,8 @@ namespace MedicineCard.Services
             var result = _userRepository.GetById(id);
             if (result == null)
             {
-                //todo logger
-                throw new Exception("error deleted");
+                Console.WriteLine("Invalid id");//todo logger
+                throw new Exception("Error"); //обработка исключений
             }
 
             _userRepository.Delete(result);

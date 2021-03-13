@@ -31,14 +31,18 @@ namespace MedicineCard.Services
             _visitRepository.Delete(visit);
         }
 
-        public IEnumerable<VisitDto> GetAll()
+        public IEnumerable<VisitDto> GetAll() //краткое дто.
         {
             var visits = _visitRepository.GetAll();
+            if (visits == null)
+            {
+                return new List<VisitDto>();
+            }
             var mapResult = _mapper.Map<IEnumerable<VisitDto>>(visits);
             return mapResult;
         }
 
-        public VisitDto GetById(long id)
+        public VisitDto GetById(long id) //полное дто со всеми подробностями
         {
             var visit = _visitRepository.GetById(id);
             if (visit == null)
