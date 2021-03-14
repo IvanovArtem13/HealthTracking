@@ -36,6 +36,7 @@ namespace MedicineCard
             services.AddControllers();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IVisitService, VisitService>();
+            services.AddScoped<IVisitRepository, VisitRepository>();
             services.AddScoped(typeof(IEfRepository<>), typeof(EfRepository<>));
             services.AddAutoMapper(typeof(Startup));
 
@@ -45,7 +46,7 @@ namespace MedicineCard
                 { 
                     Title = "MedicineCard WEB API API", 
                     Version = "v1",
-                    Description = "My first ASP.NET Core Web API"
+                    Description = "Personal medicine card"
                 });
             });
         }

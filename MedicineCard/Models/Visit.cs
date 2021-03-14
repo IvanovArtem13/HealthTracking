@@ -11,7 +11,6 @@ namespace MedicineCard.Models
         public string Recommendations { get; set; }
         public string Therapy { get; set; }
         public string Diagnosis { get; set; }
-
         public Doctor Doctor { get; set; }
     }
 }

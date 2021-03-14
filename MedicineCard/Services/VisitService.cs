@@ -10,10 +10,10 @@ namespace MedicineCard.Services
 {
     public class VisitService : IVisitService
     {
-        private readonly IEfRepository<Visit> _visitRepository;
         private readonly IMapper _mapper;
+        private readonly IVisitRepository _visitRepository;
 
-        public VisitService(IEfRepository<Visit> visitRepository, IMapper mapper)
+        public VisitService(IMapper mapper, IVisitRepository visitRepository)
         {
             _visitRepository = visitRepository;
             _mapper = mapper;
@@ -31,26 +31,26 @@ namespace MedicineCard.Services
             _visitRepository.Delete(visit);
         }
 
-        public IEnumerable<VisitDto> GetAll() //краткое дто.
+        public IEnumerable<VisitShortDto> GetAll() 
         {
             var visits = _visitRepository.GetAll();
             if (visits == null)
             {
-                return new List<VisitDto>();
+                return new List<VisitShortDto>();
             }
-            var mapResult = _mapper.Map<IEnumerable<VisitDto>>(visits);
+            var mapResult = _mapper.Map<IEnumerable<VisitShortDto>>(visits);
             return mapResult;
         }
 
-        public VisitDto GetById(long id) //полное дто со всеми подробностями
+        public VisitFullDto GetById(long id) 
         {
-            var visit = _visitRepository.GetById(id);
+            var visit = _visitRepository.GetByIdQ(id);
             if (visit == null)
             {
                 //todo logger and validation
                 return null;
             }
-            var mapResult = _mapper.Map<VisitDto>(visit);
+            var mapResult = _mapper.Map<VisitFullDto>(visit);
             return mapResult;
         }
     }

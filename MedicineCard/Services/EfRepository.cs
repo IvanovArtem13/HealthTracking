@@ -10,7 +10,7 @@ namespace MedicineCard.Services
 {
     public class EfRepository<T> : IEfRepository<T> where T : BaseEntity 
     {
-        private readonly DataContext _context;
+        protected readonly DataContext _context;
 
         public EfRepository(DataContext context)
         {
@@ -28,6 +28,7 @@ namespace MedicineCard.Services
             var entity = _context.Set<T>().FirstOrDefault(x => x.Id == id);
             return entity;
         }
+
 
         public async Task<long> Add(T entity)
         {

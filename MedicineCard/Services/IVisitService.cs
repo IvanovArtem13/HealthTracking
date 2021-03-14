@@ -9,8 +9,8 @@ namespace MedicineCard.Services
 {
     public interface IVisitService
     {
-        IEnumerable<VisitDto> GetAll();
-        VisitDto GetById(long id);
+        IEnumerable<VisitShortDto> GetAll();
+        VisitFullDto GetById(long id);
         void Delete(long id);
         //long Update(UserDto entity);
         //Task<long> Add(UserDto entity);

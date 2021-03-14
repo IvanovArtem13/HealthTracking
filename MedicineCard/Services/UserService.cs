@@ -68,6 +68,7 @@ namespace MedicineCard.Services
         public UserDto GetById(long id)
         {
             var user = _userRepository.GetById(id);
+            
             var mapResult = _mapper.Map<UserDto>(user);
             return mapResult;
         }      

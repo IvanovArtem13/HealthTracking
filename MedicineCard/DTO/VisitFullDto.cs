@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace MedicineCard.DTO
 {
-    public class VisitDto
+    public class VisitFullDto
     {
         public DateTime VisitDate { get; set; }
         public string Recommendations { get; set; }
         public string Therapy { get; set; }
         public string Diagnosis { get; set; }
-        //public Doctor Doctor { get; set; } //как правильно поработать с ссылками
+        public DoctorDto Doctor { get; set; }
     }
 }
