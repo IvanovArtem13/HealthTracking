@@ -13,6 +13,6 @@ namespace MedicineCard.Services
         VisitFullDto GetById(long id);
         void Delete(long id);
         //long Update(UserDto entity);
-        //Task<long> Add(UserDto entity);
+        Task<long> Add(VisitFullDto entity);
     }
 }

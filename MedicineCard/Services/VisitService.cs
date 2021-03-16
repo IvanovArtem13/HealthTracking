@@ -19,6 +19,13 @@ namespace MedicineCard.Services
             _mapper = mapper;
         }
 
+        public async Task<long> Add(VisitFullDto entity)
+        {
+            var mapResult = _mapper.Map<Visit>(entity);
+            var result = await _visitRepository.Add(mapResult);
+            return result;
+        }
+
         public void Delete(long id)
         {
             var visit = _visitRepository.GetById(id);

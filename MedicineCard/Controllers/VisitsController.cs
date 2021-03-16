@@ -19,7 +19,7 @@ namespace MedicineCard.Controllers
             _visitService = visitService;
         }
 
-        [HttpGet("allVisits")]
+        [HttpGet]
         public IActionResult GetAllVisits()
         {
             var visits = _visitService.GetAll();
@@ -34,7 +34,7 @@ namespace MedicineCard.Controllers
             return Ok(visit);
         }
 
-        [HttpDelete("delete")]
+        [HttpDelete]
         public IActionResult DeleteVisit(long id)
         {
             _visitService.Delete(id);

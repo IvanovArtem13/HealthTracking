@@ -20,5 +20,6 @@ namespace MedicineCard.Services
             var visit = _context.Visits.Include(x => x.Doctor).FirstOrDefault(x => x.Id == id);
             return visit;
         }
+
     }
 }

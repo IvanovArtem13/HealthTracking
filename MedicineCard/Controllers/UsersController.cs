@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MedicineCard.Controllers
 {
-    [Route("users")] 
+    [Route("users")]
     [ApiController]
 
     public class UsersController : ControllerBase
@@ -36,7 +36,7 @@ namespace MedicineCard.Controllers
         }
 
         [HttpPost("auth")]
-        public IActionResult Auth([Required]AuthRequest request)
+        public IActionResult Auth([Required] AuthRequest request)
         {
             var result = _userService.Auth(request);
             if (result == null)
@@ -46,7 +46,7 @@ namespace MedicineCard.Controllers
             return Ok(result);
         }
 
-        [HttpPost("add")]
+        [HttpPost("{id}")]
         public async Task<IActionResult> AddUser(UserDto userDto)
         {
             if (userDto == null) return BadRequest("Invalid input params");
@@ -54,7 +54,7 @@ namespace MedicineCard.Controllers
             return Ok(result);
         }
 
-        [HttpPut("update")]
+        [HttpPut("{id}")]
         public IActionResult UpdateProfile(UserDto userDto)
         {
             var result = _userService.Update(userDto);
