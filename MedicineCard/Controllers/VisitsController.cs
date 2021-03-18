@@ -22,16 +22,6 @@ namespace MedicineCard.Controllers
             _visitService = visitService;
         }
 
-        [HttpGet("testLogger")]
-        public IEnumerable<string> Get()
-        {
-            _logger.LogInfo("Here is info message from the controller.");
-            _logger.LogDebug("Here is debug message from the controller.");
-            _logger.LogWarn("Here is warn message from the controller.");
-            _logger.LogError("Here is error message from the controller.");
-            return new string[] { "value1", "value2" };
-        }
-
         [HttpGet]
         public IActionResult GetAllVisits()
         {
