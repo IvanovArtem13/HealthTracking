@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using MedicineCard.Extensions;
 using MedicineCard.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-
+using NLog;
 
 namespace MedicineCard
 {
@@ -21,6 +24,7 @@ namespace MedicineCard
     {
         public Startup(IConfiguration configuration)
         {
+            LogManager.LoadConfiguration(String.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
             Configuration = configuration;
         }
 
@@ -29,6 +33,9 @@ namespace MedicineCard
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.ConfigureCors();
+            services.ConfigureLoggerService();
+
             // добавл€ем контекст в качестве сервиса в приложение
             services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -70,6 +77,16 @@ namespace MedicineCard
             }
 
             app.UseHttpsRedirection();
+
+            app.UseStaticFiles(); // enables using static files for the request. 
+            //If we donТt set a path to the static files, it will use a wwwroot folder in our solution explorer by default.
+            app.UseCors("CorsPolicy");
+
+            //will forward proxy headers to the current request. This will help us during the Linux deployment.
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.All
+            }); 
 
             app.UseRouting();
 
