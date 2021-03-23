@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using MedicineCard.Exceptions;
+using MedicineCard.Logger;
 
 namespace MedicineCard.Services
 {
@@ -19,17 +21,16 @@ namespace MedicineCard.Services
             _mapper = mapper;
         }
 
-        public UserDto Auth(AuthRequest authRequest)
+        public AuthResponse Auth(AuthRequest authRequest)
         {
             var user = _userRepository.GetAll().FirstOrDefault(x => x.UserName == authRequest.UserName && x.Password == authRequest.Password);
 
             if (user == null)
             {
-                // todo: need to add logger
-                return null;
+                throw new NotFoundException("User does not exist");
             }
 
-            return _mapper.Map<UserDto>(user);
+            return _mapper.Map<AuthResponse>(user);
         }
 
         public void Delete(long id)
@@ -68,7 +69,10 @@ namespace MedicineCard.Services
         public UserDto GetById(long id)
         {
             var user = _userRepository.GetById(id);
-            
+            if (user == null)
+            {
+                throw new NotFoundException($"User with id({id}) does not exist");
+            }
             var mapResult = _mapper.Map<UserDto>(user);
             return mapResult;
         }      

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using MedicineCard.ExceptionHandlers;
 using MedicineCard.Extensions;
 using MedicineCard.Services;
 using Microsoft.AspNetCore.Builder;
@@ -22,19 +23,19 @@ namespace MedicineCard
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
             LogManager.LoadConfiguration(String.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
-
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.ConfigureCors();
-            services.ConfigureLoggerService();
+            
 
             // добавл€ем контекст в качестве сервиса в приложение
             services.AddDbContext<DataContext>(options =>
@@ -45,6 +46,7 @@ namespace MedicineCard
             services.AddScoped<IVisitService, VisitService>();
             services.AddScoped<IVisitRepository, VisitRepository>();
             services.AddScoped(typeof(IEfRepository<>), typeof(EfRepository<>));
+            services.ConfigureLoggerService();
             services.AddAutoMapper(typeof(Startup));
 
             services.AddSwaggerGen(c =>
@@ -76,11 +78,13 @@ namespace MedicineCard
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseMiddleware<ExceptionHandler>();
+
             app.UseHttpsRedirection();
 
             app.UseStaticFiles(); // enables using static files for the request. 
             //If we donТt set a path to the static files, it will use a wwwroot folder in our solution explorer by default.
-            app.UseCors("CorsPolicy");
+            
 
             //will forward proxy headers to the current request. This will help us during the Linux deployment.
             app.UseForwardedHeaders(new ForwardedHeadersOptions
@@ -89,6 +93,8 @@ namespace MedicineCard
             }); 
 
             app.UseRouting();
+
+            app.UseCors("CorsPolicy");
 
             app.UseAuthorization();
 

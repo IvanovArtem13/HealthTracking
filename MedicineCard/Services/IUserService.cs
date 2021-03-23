@@ -17,6 +17,6 @@ namespace MedicineCard.Services
         Task<long> Add(UserDto entity);
 
         //OTHER
-        UserDto Auth(AuthRequest authRequest);
+        AuthResponse Auth(AuthRequest authRequest);
     }
 }

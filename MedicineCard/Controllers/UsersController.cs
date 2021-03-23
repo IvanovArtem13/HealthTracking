@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using JsonApiSerializer.JsonApi;
 using MedicineCard.DTO;
 using MedicineCard.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace MedicineCard.Controllers
 {
@@ -22,12 +25,16 @@ namespace MedicineCard.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(200, Type=typeof(DocumentRoot<List<UserDto>>))]
+        [ProducesResponseType(500, Type=typeof(DocumentRoot<UserDto>))]
         public IActionResult GetAllUsers()
         {
             var users = _userService.GetAll();
             return Ok(users);
         }
 
+        [ProducesResponseType(200, Type = typeof(DocumentRoot<List<UserDto>>))]
+        [ProducesResponseType(404, Type = typeof(DocumentRoot<List<UserDto>>))]
         [HttpGet("{id}")]
         public IActionResult GetUserById(long id)
         {
@@ -38,10 +45,12 @@ namespace MedicineCard.Controllers
         [HttpPost("auth")]
         public IActionResult Auth([Required] AuthRequest request)
         {
+            if (request == null) return BadRequest("Bad request!");
+
             var result = _userService.Auth(request);
             if (result == null)
             {
-                return BadRequest("Error");
+                return BadRequest("Auth error!");
             }
             return Ok(result);
         }
@@ -67,7 +76,5 @@ namespace MedicineCard.Controllers
             _userService.Delete(id);
             return Ok("User deleted!");
         }
-
-
     }
 }

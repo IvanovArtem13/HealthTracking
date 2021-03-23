@@ -16,6 +16,7 @@ namespace MedicineCard
             CreateMap<Visit, VisitFullDto>().ReverseMap();
             CreateMap<Visit, VisitShortDto>().ReverseMap();
             CreateMap<Doctor, DoctorDto>().ReverseMap();
+            CreateMap<User, AuthResponse>().ReverseMap();
         }
     }
 }
