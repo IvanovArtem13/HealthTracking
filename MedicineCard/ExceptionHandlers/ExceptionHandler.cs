@@ -39,10 +39,8 @@ namespace MedicineCard.ExceptionHandlers
             context.Response.ContentType = "application/json";
             if (exception is NotFoundException) context.Response.StatusCode = (int)HttpStatusCode.NotFound;
             if (exception is ServerErrorException) context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-            //узнать тип экзепшна и вернуть нужный ответ.
-            
+            //узнать тип экзепшна и вернуть нужный ответ.           
             return context.Response.WriteAsync(exception.Message);
-
         }
     }
 }

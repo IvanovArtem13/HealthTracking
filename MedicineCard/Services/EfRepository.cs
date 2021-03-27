@@ -33,7 +33,7 @@ namespace MedicineCard.Services
         public async Task<long> Add(T entity)
         {
             var result = await _context.AddAsync(entity);
-            return result.Entity.Id;
+            return result.Entity.Id;           
         }
 
         public long Update(T entity)

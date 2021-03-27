@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MedicineCard.DTO;
+using MedicineCard.Exceptions;
 using MedicineCard.Models;
 using System;
 using System.Collections.Generic;
@@ -32,8 +33,7 @@ namespace MedicineCard.Services
 
             if (visit == null)
             {
-                //add valid and logger
-                return;
+                throw new NotFoundException($"User with id({id}) does not exist");
             }
             _visitRepository.Delete(visit);
         }
@@ -43,7 +43,7 @@ namespace MedicineCard.Services
             var visits = _visitRepository.GetAll();
             if (visits == null)
             {
-                return new List<VisitShortDto>();
+                throw new NotFoundException($"No visits has found");
             }
             var mapResult = _mapper.Map<IEnumerable<VisitShortDto>>(visits);
             return mapResult;
@@ -54,8 +54,7 @@ namespace MedicineCard.Services
             var visit = _visitRepository.GetByIdQ(id);
             if (visit == null)
             {
-                //todo logger and validation
-                return null;
+                throw new NotFoundException($"User with id({id}) does not exist");
             }
             var mapResult = _mapper.Map<VisitFullDto>(visit);
             return mapResult;

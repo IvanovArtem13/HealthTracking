@@ -33,7 +33,6 @@ namespace MedicineCard.Controllers
         public IActionResult GetVisitById(long id)
         {
             var visit = _visitService.GetById(id);
-            if (visit == null) return NotFound("Visit not found");
             return Ok(visit);
         }
 

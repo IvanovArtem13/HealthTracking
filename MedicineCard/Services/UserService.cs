@@ -38,8 +38,7 @@ namespace MedicineCard.Services
             var result = _userRepository.GetById(id);
             if (result == null)
             {
-                Console.WriteLine("Invalid id");//todo logger
-                throw new Exception("Error"); //обработка исключений
+                throw new NotFoundException($"User with id({id}) does not exist");
             }
 
             _userRepository.Delete(result);
@@ -62,6 +61,7 @@ namespace MedicineCard.Services
         public IEnumerable<UserDto> GetAll()
         {
             IEnumerable<User> users = _userRepository.GetAll();
+            if (users == null) throw new NotFoundException($"Users list empty");
             var mapResult = _mapper.Map<IEnumerable<UserDto>>(users);
             return mapResult;
         }
