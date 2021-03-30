@@ -33,18 +33,21 @@ namespace MedicineCard.Services
         public async Task<long> Add(T entity)
         {
             var result = await _context.AddAsync(entity);
+            _context.SaveChanges();
             return result.Entity.Id;           
         }
 
         public long Update(T entity)
         {
             var result = _context.Update(entity);
+            _context.SaveChanges();
             return result.Entity.Id;
         }
 
         public void Delete(T entity)
         {
             _context.Set<T>().Remove(entity);
+            _context.SaveChanges();
         }
     }
 }
